@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Computer Science Undergraduate Portfolio showcasing skills and academic journey.">
+    <title>Kireeti Tokala | CS Undergraduate Portfolio</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <style>
+        /* CSS Custom Properties for Theming */
+        :root {
+            --bg-base: #060918;
+            --bg-surface: #111827;
+            --bg-surface-hover: #1f2937;
+
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --text-tertiary: #6b7280;
+
+            --accent-main: #3b82f6;
+            /* Blue */
+            --accent-glow: #8b5cf6;
+            /* Violet */
+            --accent-teal: #14b8a6;
+
+            --font-sans: 'Inter', system-ui, sans-serif;
+            --font-mono: 'Fira Code', monospace;
+
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient-primary: linear-gradient(135deg, var(--accent-main), var(--accent-glow));
+        }
+
+        /* Reset & Global Styles */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        ::selection {
+            background-color: var(--accent-glow);
+            color: white;
+        }
+
+        /* Typography */
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        a {
+            color: var(--accent-main);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .text-gradient {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .font-mono {
+            font-family: var(--font-mono);
+        }
+
+        /* Layout Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 100px 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Navigation (Glassmorphism) */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 80px;
+            z-index: 1000;
+            background: rgba(6, 9, 24, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            color: var(--accent-main);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links li {
+            counter-increment: nav-item;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links a::before {
+            content: "0" counter(nav-item) ".";
+            color: var(--accent-main);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-main);
+        }
+
+        .resume-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--accent-main);
+            border-radius: 4px;
+            color: var(--accent-main) !important;
+            font-family: var(--font-mono);
+            font-size: 0.85rem !important;
+            transition: var(--transition-smooth);
+        }
+
+        .resume-btn:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+
+        .resume-btn::before {
+            display: none !important;
+        }
+
+        /* Hero Section */
+        #hero {
+            position: relative;
+        }
+
+        .hero-bg-glow {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(139, 92, 246, 0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(40px);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateX(-50%) translateY(0px);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-20px);
+            }
+
+            100% {
+                transform: translateX(-50%) translateY(0px);
+            }
+        }
+
+        .hero-intro {
+            color: var(--accent-main);
+            font-family: var(--font-mono);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            display: block;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 6vw, 5rem);
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.1;
+        }
+
+        .hero-desc {
+            color: var(--text-tertiary);
+            max-width: 540px;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent-main);
+            color: var(--accent-main);
+            transform: translateY(-2px);
+        }
+
+        /* Section Titles */
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+            width: 100%;
+        }
+
+        .section-num {
+            color: var(--accent-main);
+            font-family: var(--font-mono);
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-right: 0.8rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: var(--text-primary);
+            white-space: nowrap;
+        }
+
+        .section-line {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            width: 300px;
+            margin-left: 1.5rem;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            gap: 4rem;
+        }
+
+        .about-text {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+        }
+
+        .skills-container {
+            margin-top: 2rem;
+        }
+
+        .skills-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(140px, 200px));
+            gap: 0.5rem 1rem;
+            list-style: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+
+        .skills-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .skills-list li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--accent-main);
+        }
+
+        .about-image-wrapper {
+            position: relative;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .about-image {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            position: relative;
+            z-index: 2;
+            filter: grayscale(100%) contrast(1.2);
+            transition: var(--transition-smooth);
+            background: var(--bg-surface);
+            aspect-ratio: 1/1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-tertiary);
+        }
+
+        .about-image-wrapper::after {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--accent-main);
+            border-radius: 12px;
+            z-index: 1;
+            transition: var(--transition-smooth);
+        }
+
+        .about-image-wrapper:hover .about-image {
+            filter: none;
+            transform: translate(-5px, -5px);
+        }
+
+        .about-image-wrapper:hover::after {
+            transform: translate(5px, 5px);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background-color: var(--bg-surface);
+            border-radius: 12px;
+            padding: 2rem 1.5rem;
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.06), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            z-index: -1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .folder-icon {
+            color: var(--accent-main);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .project-links a:hover {
+            color: var(--accent-main);
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .project-title a {
+            color: inherit;
+        }
+
+        .project-title a:hover {
+            color: var(--accent-main);
+        }
+
+        .project-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            flex-grow: 1;
+            margin-bottom: 2rem;
+        }
+
+        .project-tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            list-style: none;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+        }
+
+        /* Experience Section */
+        .experience-timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-date {
+            min-width: 150px;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--text-tertiary);
+            padding-top: 0.3rem;
+        }
+
+        .timeline-content {
+            padding-bottom: 3rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .timeline-item:last-child .timeline-content {
+            border-left-color: transparent;
+        }
+
+        .timeline-content::before {
+            content: "";
+            position: absolute;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: var(--bg-base);
+            border: 2px solid var(--accent-main);
+            left: -6px;
+            top: 6px;
+            transition: var(--transition-smooth);
+        }
+
+        .timeline-item:hover .timeline-content::before {
+            background: var(--accent-main);
+            box-shadow: 0 0 10px var(--accent-main);
+        }
+
+        .role-title {
+            font-size: 1.3rem;
+            color: var(--text-primary);
+            margin-bottom: 0.2rem;
+        }
+
+        .company-name {
+            color: var(--accent-main);
+            font-weight: 500;
+        }
+
+        .role-desc {
+            margin-top: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-content .section-header {
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-content .section-line {
+            display: none;
+        }
+
+        .contact-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-desc {
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-btn {
+            display: inline-block;
+            padding: 1.25rem 2.5rem;
+            border: 1px solid var(--accent-main);
+            border-radius: 4px;
+            color: var(--accent-main);
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .contact-btn:hover {
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px -10px rgba(59, 130, 246, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-tertiary);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            list-style: none;
+        }
+
+        .social-links a {
+            color: var(--text-secondary);
+            transition: var(--transition-smooth);
+        }
+
+        .social-links a:hover {
+            color: var(--accent-main);
+            transform: translateY(-3px);
+        }
+
+        /* Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                /* In a real app, you'd add a hamburger menu */
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image-wrapper {
+                margin: 0 auto;
+                max-width: 250px;
+            }
+
+            .section-line {
+                width: 100px;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .timeline-date {
+                padding-bottom: 0;
+            }
+
+            .timeline-content {
+                padding-left: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header / Navigation -->
+    <header id="header">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <i data-feather="code" class="logo-icon"></i>
+                Kireeti<span class="text-gradient">Tokala</span>
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#" class="resume-btn">Resume</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+
+        <!-- Hero Section -->
+        <section id="hero">
+            <div class="hero-bg-glow"></div>
+            <div class="reveal">
+                <span class="hero-intro">Hi, my name is</span>
+                <h1 class="hero-title">Kireeti Tokala.</h1>
+                <h2 class="hero-subtitle">I build things for the web.</h2>
+                <p class="hero-desc">
+                    I'm a computer science undergraduate passionate about learning new technologies and solving complex
+                    problems. As a beginner in the field, I am driven by curiosity and a strong foundational
+                    understanding of computer science principles.
+                </p>
+                <div class="hero-cta">
+                    <a href="#about" class="btn btn-primary">More about me</a>
+                    <a href="https://github.com" target="_blank" class="btn btn-outline">
+                        <i data-feather="github" style="margin-right: 8px;"></i> GitHub
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <div class="section-header reveal">
+                <span class="section-num">01.</span>
+                <h2 class="section-title">About Me</h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-text reveal">
+                    <p>
+                        Hello! My name is Kireeti Tokala. I'm a highly motivated computer science undergraduate with a
+                        deep passion for technology and software development. While I am just beginning my journey in
+                        tech and haven't built large projects yet, I bring a strong analytical mindset, rapid learning
+                        capabilities, and a meticulous approach to problem-solving.
+                    </p>
+                    <p>
+                        My strength lies in my ability to deconstruct complex challenges into manageable logical steps.
+                        I thrive on continuous learning and am always eager to absorb new concepts, whether it's
+                        understanding core computer science algorithms or exploring modern web technologies. I believe
+                        that a solid foundation and a growth mindset are the keys to becoming a successful software
+                        engineer.
+                    </p>
+                    <p>
+                        I am currently focused on expanding my programming skills and exploring various domains of
+                        computer science to find my true calling.
+                    </p>
+
+                    <div class="skills-container">
+                        <p
+                            style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--accent-main); margin-bottom: 0.5rem;">
+                            Here are a few technologies I am currently learning:</p>
+                        <ul class="skills-list">
+                            <li>C / C++</li>
+                            <li>Python</li>
+                            <li>HTML & CSS</li>
+                            <li>Basic JavaScript</li>
+                            <li>Data Structures</li>
+                            <li>Algorithms</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="about-image-wrapper reveal">
+                    <div class="about-image">
+                        <i data-feather="user" style="width: 100px; height: 100px; stroke-width: 1;"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education">
+            <div class="section-header reveal">
+                <span class="section-num">02.</span>
+                <h2 class="section-title">Educational Background</h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="experience-timeline">
+                <div class="timeline-item reveal">
+                    <div class="timeline-date">Current</div>
+                    <div class="timeline-content">
+                        <h3 class="role-title">Bachelor of Science in Computer Science</h3>
+                        <div class="company-name">State University</div>
+                        <ul class="role-desc"
+                            style="list-style-position: inside; color: var(--text-secondary); font-size: 0.95rem;">
+                            <li style="margin-bottom: 0.5rem;">Focusing on core computer science principles, data
+                                structures, and algorithms.</li>
+                            <li>Actively participating in coding clubs and exploring foundational software engineering
+                                concepts.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-date">Class 12th</div>
+                    <div class="timeline-content">
+                        <h3 class="role-title">Higher Secondary Education</h3>
+                        <div class="company-name">High School</div>
+                        <ul class="role-desc"
+                            style="list-style-position: inside; color: var(--text-secondary); font-size: 0.95rem;">
+                            <li style="margin-bottom: 0.5rem;">Achieved an excellent score of <strong
+                                    style="color: var(--accent-main);">92%</strong>.</li>
+                            <li>Developed a strong foundation in Mathematics and Sciences, sparking an interest in logic
+                                and computing.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-date">Class 10th</div>
+                    <div class="timeline-content">
+                        <h3 class="role-title">Secondary Education</h3>
+                        <div class="company-name">High School</div>
+                        <ul class="role-desc"
+                            style="list-style-position: inside; color: var(--text-secondary); font-size: 0.95rem;">
+                            <li style="margin-bottom: 0.5rem;">Graduated with an outstanding score of <strong
+                                    style="color: var(--accent-main);">90%</strong>.</li>
+                            <li>Consistently performed well in analytical subjects and participated in various
+                                school-level competitions.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="contact-content reveal">
+                <div class="section-header">
+                    <span class="section-num">03.</span>
+                    <h2 class="section-title text-gradient">What's Next?</h2>
+                </div>
+                <h2 class="contact-title">Get In Touch</h2>
+                <p class="contact-desc">
+                    I'm currently looking for new opportunities and summer internships. Whether you have a question or
+                    just want to say hi, I'll try my best to get back to you!
+                </p>
+                <a href="mailto:hello@example.com" class="contact-btn">Say Hello</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <ul class="social-links">
+            <li><a href="#" aria-label="GitHub"><i data-feather="github"></i></a></li>
+            <li><a href="#" aria-label="LinkedIn"><i data-feather="linkedin"></i></a></li>
+            <li><a href="#" aria-label="Twitter"><i data-feather="twitter"></i></a></li>
+            <li><a href="#" aria-label="Codepen"><i data-feather="codepen"></i></a></li>
+        </ul>
+        <div>Designed & Built by Kireeti Tokala</div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Feather Icons
+        feather.replace();
+
+        // Scroll Reveal Animation
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        // Trigger once on load
+        reveal();
+
+        // Hide/Show Header on Scroll
+        let lastScrollTop = 0;
+        const header = document.getElementById("header");
+
+        window.addEventListener("scroll", () => {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop && scrollTop > 80) {
+                // Scroll Down
+                header.style.transform = "translateY(-100%)";
+            } else {
+                // Scroll Up
+                header.style.transform = "translateY(0)";
+            }
+            // Add slight shadow when scrolled
+            if (scrollTop > 0) {
+                header.style.boxShadow = "0 10px 30px -10px rgba(2,12,27,0.7)";
+            } else {
+                header.style.boxShadow = "none";
+            }
+            lastScrollTop = scrollTop;
+        });
+
+        // Setup complete
+    </script>
+</body>
+
+</html>
